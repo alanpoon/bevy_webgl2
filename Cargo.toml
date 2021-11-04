@@ -21,14 +21,14 @@ default = [
 ]
 
 [dependencies]
-winit = {version = "0.24.0", features = ["web-sys"]}
-bevy = { version="0.5.0", default-features=false }
-
+winit = {version = "0.25.0", features = ["web-sys"]}
+#bevy = { path = "../bevy2", default-features=false }
+bevy = { git = "https://github.com/bevyengine/bevy", rev = "d65fbd7b9d4e7393acb18ee446b76ed28a549548", default-features = false }
 regex = "1.4"
 cfg-if = "1.0.0"
 js-sys = "0.3.50"
 parking_lot = "0.11.0"
-wasm-bindgen = "0.2.73"
+wasm-bindgen = "0.2.78"
 web-sys = {version = "0.3.50", features = [
   'Document',
   'Element',
@@ -48,8 +48,8 @@ web-sys = {version = "0.3.50", features = [
 ]}
 
 [patch.crates-io]
-# bevy = {path = "../bevy", default-features=false}
-bevy = {git = "https://github.com/bevyengine/bevy", branch="main", default-features=false}
+bevy = {path = "../bevy2", default-features=false}
+#bevy = {git = "https://github.com/bevyengine/bevy", branch="main", default-features=false}
 
 [dev-dependencies]
 compile-time-run = "0.2"

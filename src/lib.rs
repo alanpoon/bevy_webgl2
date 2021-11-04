@@ -47,9 +47,9 @@ pub enum WebGL2Stage {
 pub struct WebGL2Plugin;
 
 impl Plugin for WebGL2Plugin {
-    fn build(&self, app: &mut AppBuilder) {
+    fn build(&self, app: &mut App) {
         {
-            let world = app.world_mut();
+            let world = &mut app.world;
             let cell = world.cell();
             let pipelines = cell
                 .get_resource_mut::<Assets<PipelineDescriptor>>()
@@ -94,7 +94,7 @@ impl Plugin for WebGL2Plugin {
                 }
             }
         }
-        let world = app.world_mut();
+        let mut world = &mut app.world;
         let render_system = webgl2_render_system(world);
         let handle_events_system = webgl2_handle_window_created_events_system();
         app.add_stage_before(
@@ -140,7 +140,7 @@ pub fn webgl2_handle_window_created_events_system() -> impl FnMut(&mut World) {
                 let winit_windows = world.get_resource::<bevy::winit::WinitWindows>().unwrap();
                 let winit_window = winit_windows.get_window(window_id).unwrap();
                 let mut render_resource_context = WebGL2RenderResourceContext::new(device.clone());
-                render_resource_context.initialize(&winit_window);
+                render_resource_context.initialize(winit_window);
                 render_resource_context
             };
             world.insert_resource::<Box<dyn RenderResourceContext>>(Box::new(
